@@ -1,0 +1,19 @@
+First, I made a link from there to here, using $PWD (important!) - to avoid
+accidentally creating too many levels of symbolic links due to the relative
+paths:
+
+$ ln -s $PWD/loop-convert/ ~/sandbox/clang-llvm/llvm/tools/clang/tools/extra/loop-convert
+
+I ran this in $HOME/clang-llvm/llvm/tools/clang/, to add loop-convert to the 'ninja' via 'cmake':
+
+$ echo 'add_subdirectory(loop-convert)' >> tools/extra/CMakeLists.txt
+
+To compile, go to ~/sandbox/clang-llvm/build and run 'ninja'
+Or in one command:
+
+$ ninja -C ~/sandbox/clang-llvm/build
+
+To test:
+
+$ ninja -C ~/sandbox/clang-llvm/build && ~/sandbox/clang-llvm/build/bin/loop-convert logger-test.cpp -- --std=c++11
+

@@ -1,0 +1,67 @@
+#-I tools/clang/tools/extra/loop-convert
+-I /home/shalom/sandbox/clang-llvm/llvm/tools/clang/tools/extra/loop-convert
+-I /home/shalom/sandbox/clang-llvm/llvm/tools/clang/include
+#-I tools/clang/include
+#-I include
+-I /home/shalom/sandbox/clang-llvm/llvm/include
+-I /home/shalom/sandbox/clang-llvm/build/include
+-I /home/shalom/sandbox/clang-llvm/build/tools/clang/include
+-DCLANG_ENABLE_ARCMT
+-DCLANG_ENABLE_OBJC_REWRITER
+-DCLANG_ENABLE_STATIC_ANALYZER
+-DGTEST_HAS_RTTI=0
+-D_GNU_SOURCE
+-D__STDC_CONSTANT_MACROS
+-D__STDC_FORMAT_MACROS
+-D__STDC_LIMIT_MACROS
+-fvisibility-inlines-hidden
+-Wall
+-W
+-Wno-unused-parameter
+-Wwrite-strings
+-Wcast-qual
+-Wno-missing-field-initializers
+-pedantic
+-Wno-long-long
+-Wno-maybe-uninitialized
+-Wdelete-non-virtual-dtor
+-Wno-comment
+-std=c++11
+-ffunction-sections
+-fdata-sections
+-fno-common
+-Woverloaded-virtual
+-fno-strict-aliasing
+-DNDEBUG
+-fno-exceptions
+
+
+# Add includes for both when the source is in the trunk and when it's in a subdir of branches or tags
+#-isystem
+#../../env/solclient_Linux26-x86_64_opt/include/solclient
+#-isystem
+#../env/solclient_Linux26-x86_64_opt/include/solclient
+
+# Reuters's headers require "Linux" to be defined
+#-DLinux
+
+
+# Ignore a bunch of warnings that we ignore anyway right now
+#-Wall
+#-Wno-multichar
+#-Wno-write-strings
+#-Werror=overloaded-virtual
+#-Wmissing-declarations
+#-Werror=unused-function
+#-Wformat-security
+#-Woverloaded-virtual
+#-Wshadow
+#-Wwrite-strings
+#-Wconditional-uninitialized
+#-Werror=conditional-uninitialized
+#-Wunused-comparison
+#-Werror=unused-comparison
+#-Wno-unused
+#
+## For GCC, to use C++ 2003 (which GCC 4.4.7 just called '0x')
+#--std=c++0x

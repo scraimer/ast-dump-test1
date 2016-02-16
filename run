@@ -1,0 +1,1 @@
+clang -Xclang -ast-dump -fsyntax-only  -fno-color-diagnostics 1.cpp > 1.ast
