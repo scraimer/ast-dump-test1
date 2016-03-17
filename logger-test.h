@@ -1,7 +1,7 @@
 #ifndef LOGGER_TEST_H__
 #define LOGGER_TEST_H__
 
-class LoggerEndLine { };
+class logendl { };
 
 class Logger;
 
@@ -25,7 +25,7 @@ class ILogLine
 			return *this;
 		}
 
-		void operator<<(LoggerEndLine const &);
+		void operator<<(logendl const &);
 
 		void clear()
 		{
@@ -41,7 +41,7 @@ class Logger
 	public:
 		Logger( ) : _line(*this) { }
 
-		LoggerEndLine endl;
+		logendl endl;
 		ILogLine& operator<<(int const level)
 		{
 			return _line;
@@ -53,7 +53,7 @@ class Logger
 		}
 };
 
-void ILogLine::operator<<(LoggerEndLine const &)
+void ILogLine::operator<<(logendl const &)
 {
 	_owner.flush(*this);
 }
