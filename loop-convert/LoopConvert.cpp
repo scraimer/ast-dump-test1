@@ -75,7 +75,8 @@ class FindNamedClassVisitor
 	{
 		if( _output_enabled )
 		{
-			return llvm::outs() << indent(_depth);
+			//return llvm::outs() << indent(_depth);
+			return llvm::outs();
 		}
 		else
 		{
@@ -150,9 +151,13 @@ class FindNamedClassVisitor
          int num_args = call_expr->getNumArgs();
          Expr** args = call_expr->getArgs();
 
-			if( num_args >= 2 && get_qual_type_string(args[1]) == "const class logendl")
+			if( num_args >= 2 )
 			{
-				return true;
+				auto s = get_qual_type_string(args[1]);
+            if ( (s == "const class logendl") || (s == "class logendl") || (s == "class logImmediate") || (s == "class logImmediate") || (s == "class logImmediate &") )
+            {
+               return true;
+            }
 			}
       }
 
@@ -202,13 +207,13 @@ class FindNamedClassVisitor
 								{
 									found_first_lessless_of_ilogline = true;
 									_found_logging = true;
-									outs() << "    Found logging!\n";
+									//outs() << "    Found logging!\n";
 								}
 
                         if (found_first_lessless_of_ilogline && isLessLessOnLogEndl(cxxoper_expr))
                         {
                            _found_endl_at_end = true;
-									outs() << "      Found endl at end!\n";
+									//outs() << "      Found endl at end!\n";
                         }
                      }
 						}
@@ -237,7 +242,9 @@ class FindNamedClassVisitor
 				*/
 
 				FullSourceLoc FullLocation = Context->getFullLoc(x->getLocStart());
-            outs() << "ERROR on line " << FullLocation.getSpellingLineNumber()
+				SourceManager& SourceMgr = Context->getSourceManager();
+				PresumedLoc pLoc = SourceMgr.getPresumedLoc( FullLocation );
+            outs() << "ERROR on " << pLoc.getFilename() << " " << pLoc.getLine() << ":" << pLoc.getColumn()
                    << ": Found statement in which the logger is used, but endl isn't at the end\n";
 
             /*
